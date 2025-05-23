@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>암호 해독기</title>
+  <style>
+    .encrypted {
+      color: blue;
+      cursor: pointer;
+      text-decoration: underline;
+      display: inline-block;
+      padding: 8px;
+      border-radius: 5px;
+      background-color: #f0f0ff;
+      user-select: none; /* 텍스트 선택 방지 */
+      -webkit-tap-highlight-color: transparent; /* 터치 하이라이트 제거 */
+    }
+
+    .encrypted:active {
+      background-color: #d0d0ff;
+    }
+  </style>
+</head>
+<body>
+
+  <h3>💬 주하나님의 채팅:</h3>
+  <p>
+    주하나님: <span class="encrypted" id="secret">7ZiV7J2064+Z64uk7Iuc</span>
+  </p>
+
+  <script>
+    const encryptedEl = document.getElementById('secret');
+
+    // click, touchstart 둘 다 처리
+    function decryptHandler() {
+      const encoded = encryptedEl.textContent;
+      const decoded = atob(encoded);
+      encryptedEl.textContent = decoded;
+      encryptedEl.style.color = 'black';
+      encryptedEl.style.textDecoration = 'none';
+      encryptedEl.style.cursor = 'default';
+      encryptedEl.style.backgroundColor = 'transparent';
+
+      // 이벤트 중복 방지를 위해 리스너 제거
+      encryptedEl.removeEventListener('click', decryptHandler);
+      encryptedEl.removeEventListener('touchstart', decryptHandler);
+    }
+
+    encryptedEl.addEventListener('click', decryptHandler);
+    encryptedEl.addEventListener('touchstart', decryptHandler);
+  </script>
+
+</body>
+</html>
